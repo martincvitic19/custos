@@ -1,0 +1,17 @@
+{
+	"luci-app-custos": {
+		"description": "Grant access to Custos DNS filtering",
+		"read": {
+			"ubus": {
+				"custos": [ "status", "hosts", "services", "lists", "list_domains", "querylog", "check" ]
+			},
+			"uci": [ "custos" ]
+		},
+		"write": {
+			"ubus": {
+				"custos": [ "rule", "set_connection", "refresh_lists", "apply" ]
+			},
+			"uci": [ "custos" ]
+		}
+	}
+}

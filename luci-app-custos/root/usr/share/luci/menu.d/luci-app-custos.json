@@ -1,0 +1,36 @@
+{
+	"admin/home": {
+		"title": "Home",
+		"order": 1,
+		"action": { "type": "view", "path": "custos/home" },
+		"depends": { "acl": [ "luci-app-custos" ], "uci": { "custos": true } }
+	},
+	"admin/activity": {
+		"title": "Activity",
+		"order": 2,
+		"action": { "type": "view", "path": "custos/activity" },
+		"depends": { "acl": [ "luci-app-custos" ], "uci": { "custos": true } }
+	},
+	"admin/blocklists": {
+		"title": "Block lists",
+		"order": 3,
+		"action": { "type": "view", "path": "custos/blocklists" },
+		"depends": { "acl": [ "luci-app-custos" ], "uci": { "custos": true } }
+	},
+	"admin/devices": {
+		"title": "Devices",
+		"order": 4,
+		"action": { "type": "view", "path": "custos/devices" },
+		"depends": { "acl": [ "luci-app-custos" ], "uci": { "custos": true } }
+	},
+	"admin/system/custos": {
+		"title": "Custos",
+		"order": 5,
+		"action": { "type": "view", "path": "custos/settings" },
+		"depends": { "acl": [ "luci-app-custos" ], "uci": { "custos": true } }
+	},
+	"admin/custos": {
+		"action": { "type": "alias", "path": "admin/home" },
+		"depends": { "acl": [ "luci-app-custos" ] }
+	}
+}
