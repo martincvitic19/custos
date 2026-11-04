@@ -1,0 +1,58 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0-only
+# Custos defaults, run on the first boot after every flash. Later changes
+# go through /etc/config/custos and /usr/libexec/custos/apply.
+
+# --- AdGuard Home: pre-configured, loopback-only UI, state on flash -------
+AGH_DIR=/etc/adguardhome
+if [ ! -s "$AGH_DIR/adguardhome.yaml" ]; then
+	mkdir -p "$AGH_DIR/work"
+	chmod 0700 "$AGH_DIR" "$AGH_DIR/work"
+	cp /usr/share/custos/adguardhome.yaml "$AGH_DIR/adguardhome.yaml"
+	chown -R adguardhome:adguardhome "$AGH_DIR" 2>/dev/null
+fi
+uci -q batch <<-EOF
+	set adguardhome.config.config_file='$AGH_DIR/adguardhome.yaml'
+	set adguardhome.config.work_dir='$AGH_DIR/work'
+	commit adguardhome
+EOF
+/etc/init.d/adguardhome enable
+
+# --- dnsmasq: DHCP + local names only, DNS moves to port 54 -----------------
+# AdGuard Home answers DNS on port 53; DHCP clients get this router as DNS
+# server (6,0.0.0.0 = "my own address").
+uci -q batch <<-EOF
+	set dhcp.@dnsmasq[0].port='54'
+	set dhcp.@dnsmasq[0].localuse='0'
+	del_list dhcp.lan.dhcp_option='6,0.0.0.0'
+	add_list dhcp.lan.dhcp_option='6,0.0.0.0'
+	set dhcp.lan.dns_service='0'
+	set dhcp.lan.force='1'
+	commit dhcp
+EOF
+
+# --- One network with the ISP router: both ports bridged, static address,
+# ISP router as gateway. Written by apply from /etc/config/custos.
+/usr/libexec/custos/apply boot
+
+# --- Retry a failed apply (e.g. no internet yet for the list download) ---
+touch /etc/crontabs/root
+sed -i '/custos\/apply/d' /etc/crontabs/root
+echo '*/2 * * * * /usr/libexec/custos/apply retry >/dev/null 2>&1' >> /etc/crontabs/root
+/etc/init.d/cron enable
+
+# --- SSH login banner --------------------------------------------------------
+. /etc/openwrt_release
+sed -e "s|@OPENWRT@|$DISTRIB_RELEASE|" \
+	-e "s|@VERSION@|$(cat /usr/share/custos/version 2>/dev/null)|" \
+	/usr/share/custos/banner > /etc/banner
+
+# --- Web interface ---------------------------------------------------------
+# Brand ("Custos", top left) on a lighter grey than the menu bar.
+CSS=/www/luci-static/bootstrap/cascade.css
+if [ -f "$CSS" ] && ! grep -q 'custos-brand' "$CSS"; then
+	echo 'header .brand{background:#555;border-radius:6px;margin:4px 12px 4px 0;padding:6px 14px;font-weight:400} /* custos-brand */' >> "$CSS"
+fi
+
+/etc/init.d/custos enable
+exit 0

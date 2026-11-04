@@ -1,0 +1,183 @@
+{
+	"base": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/",
+	"groups": [
+		{
+			"id": "general",
+			"title": "Ads, tracking, telemetry, malware (pick one)",
+			"exclusive": true,
+			"lists": [
+				{
+					"id": "light",
+					"name": "HaGeZi Light",
+					"descr": "Basic, almost no false positives"
+				},
+				{
+					"id": "multi",
+					"name": "HaGeZi Normal",
+					"descr": "All-round protection"
+				},
+				{
+					"id": "pro",
+					"name": "HaGeZi Pro",
+					"descr": "Extended protection (recommended)"
+				},
+				{
+					"id": "pro.plus",
+					"name": "HaGeZi Pro++",
+					"descr": "Aggressive, some false positives"
+				},
+				{
+					"id": "ultimate",
+					"name": "HaGeZi Ultimate",
+					"descr": "Strict, expect false positives"
+				}
+			]
+		},
+		{
+			"id": "security",
+			"title": "Security",
+			"lists": [
+				{
+					"id": "tif.medium",
+					"name": "Threat Intelligence (medium)",
+					"descr": "Malware, phishing, scam, cryptojacking"
+				},
+				{
+					"id": "tif",
+					"name": "Threat Intelligence (full)",
+					"descr": "Larger TIF list, needs ~150 MB more RAM"
+				},
+				{
+					"id": "fake",
+					"name": "Fake / scam shops",
+					"descr": "Fake stores, scams, traps (over 99% already in Pro and above)"
+				},
+				{
+					"id": "popupads",
+					"name": "Pop-up ads",
+					"descr": "Annoying and malicious pop-up ads (over 99% already in Pro and above)"
+				},
+				{
+					"id": "hoster",
+					"name": "Badware hoster",
+					"descr": "Hosters that serve malware, phishing and scam content"
+				},
+				{
+					"id": "dns-rebind-protection",
+					"name": "DNS rebind protection",
+					"descr": "Public names that resolve to private LAN addresses",
+					"url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adguard/dns-rebind-protection.txt"
+				},
+				{
+					"id": "spam-tlds-adblock",
+					"name": "Spam TLDs",
+					"descr": "Top-level domains abused for spam and malware"
+				},
+				{
+					"id": "urlshortener",
+					"name": "URL shorteners",
+					"descr": "Link shorteners often used to hide phishing"
+				}
+			]
+		},
+		{
+			"id": "family",
+			"title": "Family",
+			"lists": [
+				{
+					"id": "nsfw",
+					"locked": true,
+					"name": "Adult content (NSFW)",
+					"descr": "Porn and adult sites"
+				},
+				{
+					"id": "gambling",
+					"name": "Gambling",
+					"descr": "Betting, casino and lottery sites"
+				},
+				{
+					"id": "social",
+					"name": "Social networks",
+					"descr": "Facebook, Instagram, TikTok, Snapchat, X ..."
+				},
+				{
+					"id": "nosafesearch",
+					"locked": true,
+					"name": "SafeSearch not supported",
+					"descr": "Search engines that cannot enforce SafeSearch"
+				},
+				{
+					"id": "anti.piracy",
+					"name": "Piracy",
+					"descr": "Warez, torrent and illegal streaming sites"
+				}
+			]
+		},
+		{
+			"id": "native",
+			"title": "Device telemetry (native trackers)",
+			"lists": [
+				{
+					"id": "native.tiktok",
+					"name": "TikTok",
+					"descr": "TikTok telemetry, not the app itself (over 99% already in Pro and above)"
+				},
+				{
+					"id": "native.samsung",
+					"name": "Samsung",
+					"descr": "Samsung phones and TVs"
+				},
+				{
+					"id": "native.winoffice",
+					"name": "Windows / Office",
+					"descr": "Microsoft telemetry"
+				},
+				{
+					"id": "native.amazon",
+					"name": "Amazon",
+					"descr": "Alexa, Fire TV, Kindle"
+				},
+				{
+					"id": "native.apple",
+					"name": "Apple",
+					"descr": "Apple telemetry"
+				},
+				{
+					"id": "native.lgwebos",
+					"name": "LG webOS",
+					"descr": "LG smart TVs (over 99% already in Pro and above)"
+				},
+				{
+					"id": "native.roku",
+					"name": "Roku",
+					"descr": "Roku devices"
+				},
+				{
+					"id": "native.xiaomi",
+					"name": "Xiaomi",
+					"descr": "Xiaomi phones and IoT (over 99% already in Pro and above)"
+				},
+				{
+					"id": "native.huawei",
+					"name": "Huawei",
+					"descr": "Huawei phones"
+				},
+				{
+					"id": "native.vivo",
+					"name": "Vivo",
+					"descr": "Vivo phones"
+				},
+				{
+					"id": "native.oppo-realme",
+					"name": "OPPO / Realme",
+					"descr": "OPPO and Realme phones"
+				}
+			]
+		}
+	],
+	"bypass": {
+		"id": "doh-vpn-proxy-bypass",
+		"name": "HaGeZi DoH/VPN/Proxy bypass",
+		"locked": true
+	}
+}

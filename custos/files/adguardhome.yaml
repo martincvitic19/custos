@@ -1,0 +1,75 @@
+# AdGuard Home bootstrap config written by Custos on first boot.
+# Fields not listed here take AdGuard Home defaults. Filter lists, SafeSearch,
+# blocked services, custom rules and per-device clients are managed through
+# the local API by /usr/libexec/custos/apply (LuCI -> Custos).
+http:
+  # Loopback only: LuCI (root login) is the control point.
+  address: 127.0.0.1:3000
+  session_ttl: 720h
+users: []
+dns:
+  bind_hosts:
+    - 0.0.0.0
+    - '::'
+  port: 53
+  # Encrypted, no-logging upstreams (Quad9 and Mullvad DNS).
+  upstream_dns:
+    - https://dns.quad9.net/dns-query
+    - https://dns.mullvad.net/dns-query
+    - '[/lan/]127.0.0.1:54'
+  bootstrap_dns:
+    - 9.9.9.9
+    - 149.112.112.112
+    - 194.242.2.2
+  fallback_dns:
+    - 9.9.9.9
+  upstream_mode: load_balance
+  ratelimit: 0
+  refuse_any: true
+  cache_enabled: true
+  cache_size: 8388608
+  cache_optimistic: true
+  enable_dnssec: false
+  handle_ddr: false
+  use_private_ptr_resolvers: true
+  local_ptr_upstreams:
+    - 127.0.0.1:54
+  hostsfile_enabled: true
+querylog:
+  enabled: true
+  file_enabled: true
+  interval: 168h
+  size_memory: 1000
+statistics:
+  enabled: true
+  interval: 168h
+filters: []
+whitelist_filters: []
+user_rules: []
+dhcp:
+  enabled: false
+filtering:
+  protection_enabled: true
+  filtering_enabled: true
+  blocking_mode: default
+  parental_enabled: false
+  safebrowsing_enabled: false
+  filters_update_interval: 24
+  safe_search:
+    enabled: true
+    bing: true
+    duckduckgo: true
+    ecosia: true
+    google: true
+    pixabay: true
+    yandex: true
+    youtube: true
+clients:
+  runtime_sources:
+    whois: false
+    arp: true
+    rdns: true
+    dhcp: true
+    hosts: true
+  persistent: []
+schema_version: 34

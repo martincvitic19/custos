@@ -1,0 +1,21 @@
+#!/bin/sh /etc/rc.common
+# SPDX-License-Identifier: GPL-2.0-only
+
+START=99
+USE_PROCD=1
+
+APPLY=/usr/libexec/custos/apply
+
+start_service() {
+	# Reconcile in the background: AdGuard Home may still be starting and
+	# list downloads can take a while on slow links.
+	( $APPLY >/dev/null 2>&1 & )
+}
+
+reload_service() {
+	start
+}
+
+service_triggers() {
+	procd_add_reload_trigger custos
+}
