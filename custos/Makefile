@@ -24,7 +24,7 @@ endef
 define Package/custos/description
   Turns OpenWrt into the DNS server and DHCP server of an existing home
   network: AdGuard Home with HaGeZi block lists, enforced SafeSearch,
-  per-device roles and DNS bypass protection. The ISP router stays the
+  blocked apps and services and DNS bypass protection. The ISP router stays the
   router; one cable from it to this device is all it needs.
 endef
 

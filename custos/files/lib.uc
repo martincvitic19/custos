@@ -94,8 +94,7 @@ export function devices(c) {
 		push(list, {
 			section: s['.name'],
 			name: s.name ?? s.mac,
-			mac: normmac(s.mac),
-			role: s.role ?? 'child'
+			mac: normmac(s.mac)
 		});
 	});
 	return list;
@@ -105,7 +104,7 @@ export function devices(c) {
 export function hosts(c) {
 	let res = {};
 	for (let d in devices(c))
-		res[d.mac] = { mac: d.mac, name: d.name, role: d.role, configured: true };
+		res[d.mac] = { mac: d.mac, name: d.name, configured: true };
 
 	let leases = fs.readfile('/tmp/dhcp.leases') ?? '';
 	for (let line in split(leases, '\n')) {

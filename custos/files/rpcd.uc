@@ -182,7 +182,7 @@ const methods = {
 		}
 	},
 
-	// "Why is this (not) blocked?" for one domain, as a child device sees it.
+	// "Why is this (not) blocked?" for one domain.
 	check: {
 		args: { domain: 'domain' },
 		call: function(req) {

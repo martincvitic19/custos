@@ -30,7 +30,7 @@ return view.extend({
 			const blocked = r.blocked;
 			dom.content(out, E('div', { 'class': 'cu-result ' + (blocked ? 'cu-bad' : (r.safesearch ? 'cu-warn' : 'cu-ok')) }, [
 				E('strong', {}, cu.esc(r.domain)), ': ',
-				blocked ? (r.locked ? _('adult content, always blocked') : _('blocked for children')) : (r.safesearch ? _('SafeSearch address for children') : _('allowed')),
+				blocked ? (r.locked ? _('adult content, always blocked') : _('blocked')) : (r.safesearch ? _('SafeSearch address') : _('allowed')),
 				r.list ? E('div', { 'class': 'cu-small' }, _('List: %s').format(cu.esc(r.list))) : '',
 				r.rule ? E('div', { 'class': 'cu-small' }, _('Rule: %s').format(cu.esc(r.rule))) : '',
 				r.service ? E('div', { 'class': 'cu-small' }, _('Service: %s').format(cu.esc(r.service))) : '',

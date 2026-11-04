@@ -4,11 +4,6 @@
 'require uci';
 'require custos.common as cu';
 
-const ROLES = {
-	child: _('Child – block lists and blocked apps & services'),
-	trusted: _('Trusted – block lists only, apps & services are not blocked')
-};
-
 return view.extend({
 	load() {
 		return Promise.all([ cu.hosts(), uci.load('custos') ]);
@@ -17,7 +12,7 @@ return view.extend({
 	render([ res ]) {
 		const hosts = res?.hosts || [];
 		const m = new form.Map('custos', _('Devices'),
-			_('Give family devices a name and a role. <strong>Every device that is not listed here is treated as a Child</strong>, so new phones and guests are filtered from the first minute. Adult content, SafeSearch and the bypass protection apply to every device, whatever its role.') + '<br>' +
+			_('Give family devices a name, so <em>Home</em> and <em>Activity</em> show who looked something up. Every device on the network is filtered the same way, listed here or not, so new phones and guests are filtered from the first minute.') + '<br>' +
 			_('Devices are recognised by their MAC address. Phones use a random ("private") Wi-Fi address per network by default; it stays the same for your home network unless you forget the network on the phone.'));
 
 		const s = m.section(form.GridSection, 'device', _('Your devices'));
@@ -37,12 +32,6 @@ return view.extend({
 		hosts.sort((a, b) => (a.hostname || a.mac).localeCompare(b.hostname || b.mac)).forEach((h) =>
 			o.value(h.mac, '%h (%h%h)'.format(h.hostname || h.name || _('unknown'), h.ip ? h.ip + ', ' : '', h.mac)));
 
-		o = s.option(form.ListValue, 'role', _('Role'));
-		Object.keys(ROLES).forEach((k) => o.value(k, ROLES[k]));
-		o.default = 'child';
-		/* 'unfiltered' from older versions is enforced as 'trusted' */
-		o.cfgvalue = (sid) => { const v = uci.get('custos', sid, 'role'); return v == 'unfiltered' ? 'trusted' : v; };
-
 		const known = new Set(L.toArray(uci.sections('custos', 'device')).map((d) => (d.mac || '').toLowerCase()));
 		const unknown = hosts.filter((h) => h.ip && !known.has(h.mac));
 
@@ -50,7 +39,7 @@ return view.extend({
 			cu.style(),
 			node,
 			E('div', { 'class': 'cbi-section' }, [
-				E('h3', {}, _('Other devices on the network (treated as Child)')),
+				E('h3', {}, _('Other devices on the network')),
 				unknown.length ? E('table', { 'class': 'table' }, [
 					E('tr', { 'class': 'tr table-titles' }, [
 						E('th', { 'class': 'th' }, _('Name')), E('th', { 'class': 'th' }, _('IP address')), E('th', { 'class': 'th' }, _('MAC address'))

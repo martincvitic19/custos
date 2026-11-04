@@ -98,13 +98,13 @@
 				{
 					"id": "social",
 					"name": "Social networks",
-					"descr": "Facebook, Instagram, TikTok, Snapchat, X ... (also for Trusted devices)"
+					"descr": "Facebook, Instagram, TikTok, Snapchat, X ..."
 				},
 				{
 					"id": "nosafesearch",
 					"locked": true,
 					"name": "SafeSearch not supported",
-					"descr": "Search engines that cannot enforce SafeSearch (also for Trusted devices)"
+					"descr": "Search engines that cannot enforce SafeSearch"
 				},
 				{
 					"id": "anti.piracy",

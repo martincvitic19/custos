@@ -8,7 +8,7 @@ you), one cable, and every phone, laptop, TV and console on the network gets:
   Home: ads, trackers, malware, adult content, social networks, telemetry
 - SafeSearch enforced on Google, YouTube (Restricted Mode), Bing, DuckDuckGo
   and others
-- blocked apps and services per device role (*Child* / *Trusted*)
+- blocked apps and services (TikTok, Roblox, Fortnite, …)
 - bypass protection: DNS-over-HTTPS resolvers, VPN/proxy services, iCloud
   Private Relay
 - adult content, SafeSearch and bypass protection are **always on** and cannot
@@ -177,8 +177,9 @@ CycloneDX SBOM files next to the images (`*.bom.cdx.json`).
 - DNS filtering is not a firewall. A device with its own VPN, a phone on
   mobile data or an app with hard-coded DNS goes around it. The bypass
   protection closes the common paths, not all of them.
-- Device roles are tied to MAC addresses (phones keep their private Wi-Fi
-  address per network unless the network is forgotten).
+- Every device gets the same protection. Device names on the *Devices* page
+  are tied to MAC addresses (phones keep their private Wi-Fi address per
+  network unless the network is forgotten).
 - Anyone with the root password can change anything.
 
 ## License

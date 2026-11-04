@@ -109,7 +109,7 @@ return view.extend({
 
 		/* --- Block lists and own rules */
 		let s = m.section(form.NamedSection, 'filtering', 'filtering', _('Lists'),
-			_('Lists by <a href="https://github.com/hagezi/dns-blocklists" target="_blank" rel="noreferrer">HaGeZi</a>, updated automatically every 24 hours. They apply to every device except <em>Unfiltered</em> ones.'));
+			_('Lists by <a href="https://github.com/hagezi/dns-blocklists" target="_blank" rel="noreferrer">HaGeZi</a>, updated automatically every 24 hours. They apply to every device.'));
 		s.addremove = false;
 		s.tab('level', _('Protection level'));
 		groups.filter((g) => !g.exclusive).forEach((g) => s.tab(g.id, g.title.replace(/ \(.*\)$/, '')));
@@ -148,7 +148,7 @@ return view.extend({
 		});
 
 		let o = s.taboption('services', ServiceGrid, 'blocked_service', _('Blocked apps & services'),
-			_('Blocks a whole service (app, web site and its servers) for <em>Child</em> devices. Lists cover categories; this covers single services such as TikTok, Roblox or Fortnite.'));
+			_('Blocks a whole service (app, web site and its servers) on every device. Lists cover categories; this covers single services such as TikTok, Roblox or Fortnite.'));
 		o.services = services.services || [];
 
 		o = s.taboption('own', form.DynamicList, 'block_domain', _('Always block'),
@@ -178,7 +178,7 @@ return view.extend({
 		const li = (t, d) => E('li', {}, [ cu.mark(true, t), d ? E('span', { 'class': 'cu-small' }, ' – ' + d) : '' ]);
 		return E('div', { 'class': 'cbi-section' }, [
 			E('h3', {}, _('Always on')),
-			E('p', { 'class': 'cbi-section-descr' }, _('These protections apply to every device, Trusted ones included, and cannot be switched off here.')),
+			E('p', { 'class': 'cbi-section-descr' }, _('These protections apply to every device and cannot be switched off.')),
 			E('div', { 'class': 'cu-cols' }, [
 				cu.card(_('SafeSearch'), E('ul', { 'class': 'cu-lock' }, [
 					li('Google Search & Images'),

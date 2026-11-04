@@ -155,9 +155,9 @@ function agh_wait() {
 const SAFE = { enabled: true, bing: true, duckduckgo: true, ecosia: true, google: true,
 	pixabay: true, yandex: true, youtube: true };
 
-// child: everything, incl. blocked services (the global settings).
-// trusted: no blocked services; lists, SafeSearch and bypass protection
-// still apply. ('unfiltered' from older configs is treated as trusted.)
+// Every device gets the same protection (the global settings); the client
+// entry only gives it a name in the query log. A 'role' option left over
+// from older configs is ignored.
 function client_data(d, mac) {
 	let base = {
 		name: d.name,
@@ -174,11 +174,6 @@ function client_data(d, mac) {
 		ignore_querylog: false,
 		ignore_statistics: false
 	};
-	if (d.role == 'trusted' || d.role == 'unfiltered') {
-		base.use_global_settings = false;
-		base.use_global_blocked_services = false;
-		base.safe_search = SAFE;
-	}
 	return base;
 }
 
@@ -283,7 +278,7 @@ function sync_agh(c) {
 		cu.agh_ok(r) ? push(changes, 'agh: safesearch') : push(errors, `safesearch: ${cu.agh_err(r)}`);
 	}
 
-	// Blocked services (global = child profile)
+	// Blocked services (for every device)
 	let svc = { ids: sort(as_list(c.get('custos', 'filtering', 'blocked_service'))),
 		schedule: { time_zone: 'Local' } };
 	let bs = cu.agh('GET', '/blocked_services/get');
@@ -292,7 +287,7 @@ function sync_agh(c) {
 		cu.agh_ok(r) ? push(changes, 'agh: blocked services') : push(errors, `services: ${cu.agh_err(r)}`);
 	}
 
-	// Persistent clients: every configured device, named, with role overrides.
+	// Persistent clients: every configured device, so the query log shows its name.
 	let cl = cu.agh('GET', '/clients');
 	let existing = {};
 	for (let x in (cl.body?.clients ?? []))
