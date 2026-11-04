@@ -49,8 +49,14 @@ Quad9 and Mullvad DNS. The traffic itself never passes through Custos.
 
 ## What you need
 
-- GL.iNet **GL-MT2500 / GL-MT2500A Brume 2** (configs for Raspberry Pi 4/5 and
-  x86-64 are included but less tested)
+- GL.iNet **GL-MT2500 / GL-MT2500A Brume 2**. Other devices supported by
+  OpenWrt work too: Custos needs one Ethernet port, 512 MB RAM and 128 MB of
+  storage. Closest to the Brume 2 (small, wired only, two or more Ethernet ports) are
+  the FriendlyElec NanoPi R2S / R3S / R5S / R6S and the Radxa E20C. Common
+  boards like the Raspberry Pi 4 / 5 or any x86-64 PC work as well. The
+  GL.iNet Brume 3 (GL-MT5000) is not supported by OpenWrt 25.12 yet. A new
+  device needs its own `configs/<device>.config` (copy an existing one and
+  change the target lines).
 - a PC with an Ethernet port and two Ethernet cables
 - admin access to your CPE's web interface (to switch its DHCP off)
 - for building: Linux (Debian 12 / Ubuntu 22.04 or newer), ~40 GB free disk,
