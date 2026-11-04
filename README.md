@@ -87,9 +87,16 @@ browser bar (often `192.168.0.1` or `192.168.1.1`) is `CUSTOS_GATEWAY`. For
 CPE's DHCP range, e.g. `.14`. Both can be changed later under
 *System → Custos*.
 
-The build creates a **random root password** and saves it to
-`feeds/custos/.secrets/<device>-root-password` (git-ignored). Only its hash
-goes into the image. Set `CUSTOS_ROOT_PASSWORD` to choose your own.
+**Root password.** The build creates a random root password for every build
+and saves it on the build machine (git-ignored). Only its hash goes into the
+image. You log in to the web UI (and SSH, unless you set `CUSTOS_SSH_PUBKEY`)
+as user `root` with this password:
+
+```sh
+cat feeds/custos/.secrets/glinet_gl-mt2500-root-password    # in the openwrt directory
+```
+
+Set `CUSTOS_ROOT_PASSWORD` before building to choose your own instead.
 
 The image you need is
 `bin/targets/mediatek/filogic/openwrt-mediatek-filogic-glinet_gl-mt2500-airoha-squashfs-sysupgrade.bin`.
