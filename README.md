@@ -173,6 +173,32 @@ Reconnect each device (Wi-Fi off and on) so it gets a new lease. Then:
 
 Accept the self-signed certificate. SSH: `ssh root@192.168.0.14`.
 
+## When Custos is unplugged or off
+
+Custos is the only DHCP and DNS server of the network, so without it the
+network does **not** fall back to unfiltered internet. It simply stops
+working:
+
+- **Names stop resolving.** Devices still use `192.168.0.14` as their DNS
+  server, which no longer answers, so web pages and apps can't connect.
+  Connections that are already open, and anything that uses a plain IP
+  address, keep working for a while.
+- **No new addresses.** The CPE's DHCP is off, so devices keep their address
+  only until their lease runs out (12 hours). A device that joins or
+  reconnects in the meantime gets no address (`169.254.x.x`) and no internet.
+- **Plugging it back in fixes it by itself.** After about 2 minutes Custos
+  answers again and the devices recover without any action. Devices that
+  had lost their address get it back after reconnecting their Wi-Fi.
+
+This is deliberate: pulling the cable does not get anyone around the filter,
+it takes the whole house offline, and that gets noticed. Put the box where
+children can't reach it. Flashing an update or rebooting behaves the same
+for about 3 minutes.
+
+If Custos is broken and you need internet without it, switch the CPE's DHCP
+server back on and reconnect the devices. They then use the ISP's DNS, which
+is **unfiltered**. Switch it off again once Custos is back.
+
 ## Updates
 
 Build a new image, then flash it over the network:
