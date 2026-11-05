@@ -49,8 +49,14 @@ Quad9 and Mullvad DNS. The traffic itself never passes through Custos.
 
 ## What you need
 
-- GL.iNet **GL-MT2500 / GL-MT2500A Brume 2** (configs for Raspberry Pi 4/5 and
-  x86-64 are included but less tested)
+- GL.iNet **GL-MT2500 / GL-MT2500A Brume 2**. Other devices supported by
+  OpenWrt work too: Custos needs one Ethernet port, 512 MB RAM and 128 MB of
+  storage. Closest to the Brume 2 (small, wired only, two or more Ethernet ports) are
+  the FriendlyElec NanoPi R2S / R3S / R5S / R6S and the Radxa E20C. Common
+  boards like the Raspberry Pi 4 / 5 or any x86-64 PC work as well. The
+  GL.iNet Brume 3 (GL-MT5000) is not supported by OpenWrt 25.12 yet. A new
+  device needs its own `configs/<device>.config` (copy an existing one and
+  change the target lines).
 - a PC with an Ethernet port and two Ethernet cables
 - admin access to your CPE's web interface (to switch its DHCP off)
 - for building: Linux (Debian 12 / Ubuntu 22.04 or newer), ~40 GB free disk,
@@ -166,6 +172,32 @@ Reconnect each device (Wi-Fi off and on) so it gets a new lease. Then:
 | `https://192.168.0.14` (log in as `root`) | *Home* says the network is protected |
 
 Accept the self-signed certificate. SSH: `ssh root@192.168.0.14`.
+
+## When Custos is unplugged or off
+
+Custos is the only DHCP and DNS server of the network, so without it the
+network does **not** fall back to unfiltered internet. It simply stops
+working:
+
+- **Names stop resolving.** Devices still use `192.168.0.14` as their DNS
+  server, which no longer answers, so web pages and apps can't connect.
+  Connections that are already open, and anything that uses a plain IP
+  address, keep working for a while.
+- **No new addresses.** The CPE's DHCP is off, so devices keep their address
+  only until their lease runs out (12 hours). A device that joins or
+  reconnects in the meantime gets no address (`169.254.x.x`) and no internet.
+- **Plugging it back in fixes it by itself.** After about 2 minutes Custos
+  answers again and the devices recover without any action. Devices that
+  had lost their address get it back after reconnecting their Wi-Fi.
+
+This is deliberate: pulling the cable does not get anyone around the filter,
+it takes the whole house offline, and that gets noticed. Put the box where
+children can't reach it. Flashing an update or rebooting behaves the same
+for about 3 minutes.
+
+If Custos is broken and you need internet without it, switch the CPE's DHCP
+server back on and reconnect the devices. They then use the ISP's DNS, which
+is **unfiltered**. Switch it off again once Custos is back.
 
 ## Updates
 
