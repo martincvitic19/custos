@@ -15,6 +15,8 @@ you), one cable, and every phone, laptop, TV and console on the network gets:
   be overridden with *Allow*
 - a LuCI web UI: *Home*, *Activity*, *Block lists*, *Devices*
 
+![The Custos Home page in LuCI: protection status, checks, numbers, recently and top blocked domains](docs/luci-home.png)
+
 This repository is an **OpenWrt feed**: it holds only the Custos packages and
 the build script. The rest is vanilla OpenWrt.
 
@@ -112,7 +114,12 @@ Older Brume 2 units without the Airoha PHY use the same file without
 ## 3. First flash (LAN port)
 
 The stock GL.iNet firmware only allows admin access from its **LAN** port, at
-`192.168.8.1`. So the first flash is the only time you use the LAN port:
+`192.168.8.1`. So the first flash is the only time you use the LAN port.
+For pictures of the ports and the stock admin page, check out the
+[Brume 2 user guide](https://docs.gl-inet.com/router/en/4/user_guide/gl-mt2500/)
+([first time setup](https://docs.gl-inet.com/router/en/4/user_guide/gl-mt2500/first_time_setup/),
+[firmware upgrade](https://docs.gl-inet.com/router/en/4/interface_guide/firmware_upgrade/)),
+which shows the connections more clearly than words can.
 
 1. PC Ethernet → **Brume LAN port**, nothing in the WAN port. Power on and
    wait about a minute.
