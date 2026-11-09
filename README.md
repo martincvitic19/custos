@@ -64,6 +64,29 @@ Quad9 and Mullvad DNS. The traffic itself never passes through Custos.
 - for building: Linux (Debian 12 / Ubuntu 22.04 or newer), ~40 GB free disk,
   1–2 hours for the first build
 
+## Quick start: download a release
+
+You don't have to build anything. Every
+[release](https://github.com/martincvitic19/custos/releases/latest) has a
+ready-made image for the Brume 2:
+
+| File | For |
+|---|---|
+| `…-glinet_gl-mt2500-airoha-squashfs-sysupgrade.bin` | Brume 2 with the Airoha PHY (newer units) |
+| `…-glinet_gl-mt2500-squashfs-sysupgrade.bin` | older Brume 2 units |
+| `sha256sums` | checksums: `sha256sum -c sha256sums --ignore-missing` |
+| `*.bom.cdx.json` | the SBOM: every package and version in the image |
+
+A release image expects your CPE at `192.168.0.1` and puts Custos at
+`192.168.0.14`; you can change both after the first login under
+*System → Custos*. It has **no root password**: the first time you open the
+web UI, log in as `root` with an empty password and set one under
+*System → Administration*, before anything else. Then continue with
+[3. First flash](#3-first-flash-lan-port).
+
+To bake in your own address, password or SSH key, build the image yourself
+(steps 1 and 2).
+
 ## 1. Download
 
 Install the
@@ -214,6 +237,11 @@ Build a new image, then flash it over the network:
 scp -O bin/targets/mediatek/filogic/*gl-mt2500-airoha*sysupgrade.bin root@192.168.0.14:/tmp/fw.bin
 ssh root@192.168.0.14 'sysupgrade /tmp/fw.bin'       # keeps settings; -n starts fresh
 ```
+
+The settings from the build (address, gateway, root password, SSH key, host
+name, time zone) are applied on the **first boot only**. An update that keeps
+settings leaves whatever you changed on the device alone, so you can update
+with a release image or a build with other `CUSTOS_*` values.
 
 The block lists update themselves every 24 hours. Every build also writes
 CycloneDX SBOM files next to the images (`*.bom.cdx.json`).
