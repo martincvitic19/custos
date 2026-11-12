@@ -82,7 +82,7 @@ A release image expects your CPE at `192.168.0.1` and puts Custos at
 *System → Custos*. It has **no root password**: the first time you open the
 web UI, log in as `root` with an empty password and set one under
 *System → Administration*, before anything else. Then continue with
-[3. First flash](#3-first-flash-lan-port).
+[3. First flash](#3-first-flash).
 
 To bake in your own address, password or SSH key, build the image yourself
 (steps 1 and 2).
@@ -134,18 +134,16 @@ The image you need is
 Older Brume 2 units without the Airoha PHY use the same file without
 `-airoha`; the stock firmware refuses the wrong one.
 
-## 3. First flash (LAN port)
+## 3. First flash
 
-The stock GL.iNet firmware only allows admin access from its **LAN** port, at
-`192.168.8.1`, so the first flash has to go through the LAN port.
 For pictures of the ports and the stock admin page, check out the
 [Brume 2 user guide](https://docs.gl-inet.com/router/en/4/user_guide/gl-mt2500/)
 ([first time setup](https://docs.gl-inet.com/router/en/4/user_guide/gl-mt2500/first_time_setup/),
 [firmware upgrade](https://docs.gl-inet.com/router/en/4/interface_guide/firmware_upgrade/)),
 which shows the connections more clearly than words can.
 
-1. PC Ethernet → **Brume LAN port**, nothing in the WAN port. Power on and
-   wait about a minute.
+1. PC Ethernet → Brume **LAN** port (the stock firmware only allows admin
+   access there). Power on and wait about a minute.
 2. Open `http://192.168.8.1` and set an admin password if asked.
 3. *System → Upgrade → Local Upgrade*, choose the sysupgrade image,
    **untick *Keep Settings***, *Install*.
@@ -154,13 +152,11 @@ which shows the connections more clearly than words can.
 ## 4. Connect
 
 1. Power the Brume off.
-2. Cable from a **LAN port of the CPE → either Brume port**. Custos bridges
-   both ports into one network, so WAN and LAN work the same.
+2. Cable from the CPE to either Brume port (Custos bridges both ports).
 3. Power the Brume on and give it 2–3 minutes to download the block lists.
 
 From now on Custos is reachable over that one cable, including for all
-future updates. The other port works like a switch port: a PC plugged into
-it is on the home network too.
+future updates.
 
 ## 5. Configure the CPE
 
@@ -222,9 +218,7 @@ working:
   had lost their address get it back after reconnecting their Wi-Fi.
 
 This is deliberate: pulling the cable does not get anyone around the filter,
-it takes the whole house offline, and that gets noticed. Put the box where
-children can't reach it. Flashing an update or rebooting behaves the same
-for about 3 minutes.
+it takes the whole house offline, and that gets noticed.
 
 If Custos is broken and you need internet without it, switch the CPE's DHCP
 server back on and reconnect the devices. They then use the ISP's DNS, which
