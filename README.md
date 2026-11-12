@@ -137,7 +137,7 @@ Older Brume 2 units without the Airoha PHY use the same file without
 ## 3. First flash (LAN port)
 
 The stock GL.iNet firmware only allows admin access from its **LAN** port, at
-`192.168.8.1`. So the first flash is the only time you use the LAN port.
+`192.168.8.1`, so the first flash has to go through the LAN port.
 For pictures of the ports and the stock admin page, check out the
 [Brume 2 user guide](https://docs.gl-inet.com/router/en/4/user_guide/gl-mt2500/)
 ([first time setup](https://docs.gl-inet.com/router/en/4/user_guide/gl-mt2500/first_time_setup/),
@@ -154,12 +154,13 @@ which shows the connections more clearly than words can.
 ## 4. Connect
 
 1. Power the Brume off.
-2. Cable from a **LAN port of the CPE → Brume WAN port**. The Brume's LAN port
-   stays empty.
+2. Cable from a **LAN port of the CPE → either Brume port**. Custos bridges
+   both ports into one network, so WAN and LAN work the same.
 3. Power the Brume on and give it 2–3 minutes to download the block lists.
 
-Custos bridges both ports into one network, so from now on it is reachable
-over that one cable, including for all future updates.
+From now on Custos is reachable over that one cable, including for all
+future updates. The other port works like a switch port: a PC plugged into
+it is on the home network too.
 
 ## 5. Configure the CPE
 
